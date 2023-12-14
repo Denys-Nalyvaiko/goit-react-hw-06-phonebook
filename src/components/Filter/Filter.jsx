@@ -1,8 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
+import { updateFilter } from 'features/filter/filterSlice';
 import { TextInput } from './Filter.styled';
 
-export const Filter = ({ value, onChange }) => {
+export const Filter = () => {
+  const filterValue = useSelector(state => state.filter.value);
+  const dispatch = useDispatch();
   const filterInputId = nanoid();
+
+  const handleFilterInputChange = event => {
+    const { value } = event.currentTarget;
+    dispatch(updateFilter(value));
+  };
 
   return (
     <TextInput
@@ -10,8 +19,8 @@ export const Filter = ({ value, onChange }) => {
       type="text"
       name="filter"
       id={filterInputId}
-      value={value}
-      onChange={onChange}
+      value={filterValue}
+      onChange={handleFilterInputChange}
       variant="outlined"
       sx={{
         '& > :not(style)': {

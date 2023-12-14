@@ -1,12 +1,17 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix';
 import Button from '@mui/material/Button';
 import ReactInputMask from 'react-input-mask';
+import { addContact } from 'features/contacts/contactsSlice';
 import { FormBox, TextInput } from './ContactForm.styled';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.list);
 
   const options = {
     name: setName,
@@ -19,8 +24,17 @@ export const ContactForm = ({ onSubmit }) => {
     event.preventDefault();
 
     const currentContact = { name, number };
+    const isContactNameAlreadyExist = contacts.find(
+      ({ name }) =>
+        name.toLowerCase().trim() === currentContact.name.toLowerCase().trim()
+    );
 
-    onSubmit(currentContact);
+    if (isContactNameAlreadyExist) {
+      Notify.failure('Contact with this name already exist');
+      return;
+    }
+
+    dispatch(addContact(currentContact));
     reset();
   };
 

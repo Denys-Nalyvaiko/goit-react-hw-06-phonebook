@@ -1,25 +1,42 @@
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 import { Demo } from './ContactListDemo.styled';
 import { ContactItem } from 'components/ContactItem/ContactItem';
+import { InfoTitle } from 'components/Container.styled';
 
-export const ContactList = ({ contacts, onDeleteButtonClick }) => (
-  <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-    <Grid item xs={12} md={6}>
-      <Demo>
-        <List>
-          {contacts.map(({ id, name, number }) => (
-            <ContactItem
-              key={id}
-              id={id}
-              name={name}
-              number={number}
-              onDeleteButtonClick={onDeleteButtonClick}
-            />
-          ))}
-        </List>
-      </Demo>
-    </Grid>
-  </Box>
-);
+export const ContactList = () => {
+  const constacts = useSelector(state => state.contacts.list);
+  const filter = useSelector(state => state.filter.value);
+
+  const updateFilteredList = () => {
+    const validFilter = filter.toLowerCase().trim();
+
+    return constacts.filter(({ name }) =>
+      name.toLowerCase().includes(validFilter)
+    );
+  };
+
+  const filteredContacts = updateFilteredList();
+
+  return (
+    <>
+      {!filteredContacts.length ? (
+        <InfoTitle>The contact list is empty</InfoTitle>
+      ) : (
+        <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+          <Grid item xs={12} md={6}>
+            <Demo>
+              <List>
+                {filteredContacts.map(({ id, name, number }) => (
+                  <ContactItem key={id} id={id} name={name} number={number} />
+                ))}
+              </List>
+            </Demo>
+          </Grid>
+        </Box>
+      )}
+    </>
+  );
+};
