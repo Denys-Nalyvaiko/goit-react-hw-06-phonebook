@@ -3,13 +3,13 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 import { ContactItem } from 'components/ContactItem/ContactItem';
-import { contactsSelector, filterSelector } from '../../redux/selectors';
+import { selectContacts, selectFilter } from '../../redux/selectors';
 import { Demo } from './ContactListDemo.styled';
 import { InfoTitle } from 'components/Container.styled';
 
 export const ContactList = () => {
-  const constacts = useSelector(contactsSelector);
-  const filter = useSelector(filterSelector);
+  const constacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   const updateFilteredList = () => {
     const validFilter = filter.toLowerCase().trim();

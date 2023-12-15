@@ -5,14 +5,14 @@ import { Notify } from 'notiflix';
 import Button from '@mui/material/Button';
 import ReactInputMask from 'react-input-mask';
 import { addContact } from 'features/contacts/contactsSlice';
-import { contactsSelector } from '../../redux/selectors';
+import { selectContacts } from '../../redux/selectors';
 import { FormBox, TextInput } from './ContactForm.styled';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(contactsSelector);
+  const contacts = useSelector(selectContacts);
 
   const options = {
     name: setName,
