@@ -2,13 +2,14 @@ import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
-import { Demo } from './ContactListDemo.styled';
 import { ContactItem } from 'components/ContactItem/ContactItem';
+import { contactsSelector, filterSelector } from '../../redux/selectors';
+import { Demo } from './ContactListDemo.styled';
 import { InfoTitle } from 'components/Container.styled';
 
 export const ContactList = () => {
-  const constacts = useSelector(state => state.contacts.list);
-  const filter = useSelector(state => state.filter.value);
+  const constacts = useSelector(contactsSelector);
+  const filter = useSelector(filterSelector);
 
   const updateFilteredList = () => {
     const validFilter = filter.toLowerCase().trim();
