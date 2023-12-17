@@ -4,8 +4,8 @@ import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
 import Button from '@mui/material/Button';
 import ReactInputMask from 'react-input-mask';
-import { addContact } from 'features/contacts/contactsSlice';
-import { selectContacts } from '../../redux/selectors';
+import { addContact } from '../../redux/contacts/contactsSlice';
+import { selectContacts } from '../../redux/contacts/selectContacts';
 import { FormBox, TextInput } from './ContactForm.styled';
 
 export const ContactForm = () => {

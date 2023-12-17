@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 import { ContactItem } from 'components/ContactItem/ContactItem';
-import { selectContacts, selectFilter } from '../../redux/selectors';
+import { selectContacts } from '../../redux/contacts/selectContacts';
+import { selectFilter } from '../../redux/filter/selectFilter';
 import { Demo } from './ContactListDemo.styled';
 import { InfoTitle } from 'components/Container.styled';
 
